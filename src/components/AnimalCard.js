@@ -51,7 +51,7 @@ export default function AnimalCard({ animal }) {
 	const {
 		animal_type,
 		name,
-		photo_url,
+		complete_photos,
 		photo_status,
 		description,
 		painting,
@@ -63,6 +63,10 @@ export default function AnimalCard({ animal }) {
 
 	const avatarLetter = string => {
 		return string.split('')[0].toUpperCase();
+	};
+
+	const photoUrl = () => {
+		return complete_photos ? complete_photos[0].url : '';
 	};
 
 	const subheader = () => {
@@ -107,7 +111,7 @@ export default function AnimalCard({ animal }) {
 			<CardMedia
 				className={classes.media}
 				// image='https://drive.google.com/uc?export=view&id=13xmQNRWPiICreCTeWqLxfe_8meH5V82t'
-				image={photo_url}
+				image={photoUrl}
 				title={'animal-photo'}
 			/>
 			<CardContent>

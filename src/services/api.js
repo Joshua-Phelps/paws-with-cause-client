@@ -16,8 +16,20 @@ const getAnimals = () => {
 	}).then(res => res.json());
 };
 
-const getDisplayLocations = () => {
-	return fetch(`${API_ROOT}/display_locations`, {
+const getAnimalById = id => {
+	return fetch(`${API_ROOT}/animals/${id}`, {
+		headers: headers(),
+	}).then(res => res.json());
+};
+
+const getGalleries = () => {
+	return fetch(`${API_ROOT}/galleries`, {
+		headers: headers(),
+	}).then(res => res.json());
+};
+
+const getGalleryById = id => {
+	return fetch(`${API_ROOT}/galleries/${id}`, {
 		headers: headers(),
 	}).then(res => res.json());
 };
@@ -25,8 +37,10 @@ const getDisplayLocations = () => {
 export const api = {
 	animals: {
 		getAnimals,
+		getAnimalById,
 	},
-	displayLocations: {
-		getDisplayLocations,
+	galleries: {
+		getGalleries,
+		getGalleryById,
 	},
 };

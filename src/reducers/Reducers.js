@@ -1,5 +1,5 @@
 const SET_ANIMALS = 'SET_ANIMALS';
-const SET_DISPLAY_LOCATIONS = 'SET_DISPLAY_LOCATIONS';
+const SET_GALLERIES = 'SET_GALLERIES';
 
 const animalsReducer = (state, action) => {
 	switch (action.type) {
@@ -10,13 +10,13 @@ const animalsReducer = (state, action) => {
 	}
 };
 
-const displayLocationsReducer = (state, action) => {
+const galleriesReducer = (state, action) => {
 	switch (action.type) {
-		case SET_DISPLAY_LOCATIONS:
+		case SET_GALLERIES:
 			return [...action.payload];
 		default:
 			return state;
 	}
 };
 
-export { animalsReducer, displayLocationsReducer };
+export { animalsReducer, galleriesReducer };

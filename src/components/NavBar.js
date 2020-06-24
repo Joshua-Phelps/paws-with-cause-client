@@ -18,7 +18,7 @@ export default function NavBar({ history }) {
 	const handleChange = (event, newValue) => {
 		setTabEl(newValue);
 		newValue === 0 && history.push('/animals');
-		newValue === 1 && history.push('/display-locations');
+		newValue === 1 && history.push('/galleries');
 		newValue === 2 && history.push('/shelters');
 		// newValue === 3 && history.push('/boards');
 	};
@@ -33,7 +33,7 @@ export default function NavBar({ history }) {
 						onChange={handleChange}
 						aria-label='nav tabs example'>
 						<Tab label='Animals' />
-						<Tab label='Display Locations' />
+						<Tab label='Galleries' />
 						<Tab label='Shelters' />
 						{/* <Tab label='Boards' /> */}
 					</Tabs>
@@ -44,7 +44,7 @@ export default function NavBar({ history }) {
 						aria-haspopup='true'
 						// className={classes.account}
 						onClick={handleClick}
-						fontSize='Large'
+						fontSize='large'
 					/>
 					<Menu
 						id='simple-menu'
