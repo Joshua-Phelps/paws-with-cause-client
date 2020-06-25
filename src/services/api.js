@@ -34,6 +34,24 @@ const getGalleryById = id => {
 	}).then(res => res.json());
 };
 
+const getPaintLocs = () => {
+	return fetch(`${API_ROOT}/paint_locations`, {
+		headers: headers(),
+	}).then(res => res.json());
+};
+
+const getPaintLocById = id => {
+	return fetch(`${API_ROOT}/paint_locations/${id}`, {
+		headers: headers(),
+	}).then(res => res.json());
+};
+
+const getPaintingById = id => {
+	return fetch(`${API_ROOT}/paintings/${id}`, {
+		headers: headers(),
+	}).then(res => res.json());
+};
+
 export const api = {
 	animals: {
 		getAnimals,
@@ -42,5 +60,12 @@ export const api = {
 	galleries: {
 		getGalleries,
 		getGalleryById,
+	},
+	paintLocs: {
+		getPaintLocs,
+		getPaintLocById,
+	},
+	paintings: {
+		getPaintingById,
 	},
 };

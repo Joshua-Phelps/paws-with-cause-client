@@ -20,7 +20,7 @@ export default function NavBar({ history }) {
 		newValue === 0 && history.push('/animals');
 		newValue === 1 && history.push('/galleries');
 		newValue === 2 && history.push('/shelters');
-		// newValue === 3 && history.push('/boards');
+		newValue === 3 && history.push('/paint-locations');
 	};
 
 	return (
@@ -35,7 +35,7 @@ export default function NavBar({ history }) {
 						<Tab label='Animals' />
 						<Tab label='Galleries' />
 						<Tab label='Shelters' />
-						{/* <Tab label='Boards' /> */}
+						<Tab label='Paint Locations' />
 					</Tabs>
 				</Grid>
 				<Grid item xs={1}>

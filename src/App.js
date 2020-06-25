@@ -6,9 +6,16 @@ import HomePage from './components/HomePage';
 import NavBar from './components/NavBar';
 import AnimalCardsContainer from './containers/AnimalCardsContainer';
 import GalleryCardsContainer from './containers/GalleryCardsContainer';
+import PaintLocContainer from './containers/PaintLocContainer';
 import AnimalShowPage from './components/AnimalShowPage';
 import GalleryShowPage from './components/GalleryShowPage';
-import { animalsReducer, galleriesReducer } from './reducers/Reducers';
+import PaintLocationShowPage from './components/PaintLocationShowPage';
+import PaintingForm from './components/PaintingForm';
+import {
+	animalsReducer,
+	galleriesReducer,
+	paintLocsReducer,
+} from './reducers/Reducers';
 import AnimalCard from './components/AnimalCard';
 
 export const StateContext = createContext();
@@ -17,31 +24,63 @@ export const DispatchContext = createContext();
 function App() {
 	const [animals, animalsDispatch] = useReducer(animalsReducer, []);
 	const [galleries, galleriesDispatch] = useReducer(galleriesReducer, []);
+	const [paintLocs, paintLocsDispatch] = useReducer(paintLocsReducer, []);
 
 	const state = { animals, galleries };
 
 	useEffect(() => {
+		setPaintLocs();
+		setGalleries();
+
 		// const token = localStorage.getItem("token");
 		// if (token) {
 		// setLoading(true)
-		// api.animals
-		// 	.getAnimals()
-		// 	.then(animals => {
-		// 		animalsDispatch({ type: 'SET_ANIMALS', payload: animals });
-		// 	})
-		// 	.catch(error => console.log(error));
-		api.galleries.getGalleries().then(galleries =>
-			galleriesDispatch({
-				type: 'SET_GALLERIES',
-				payload: galleries,
+		api.animals
+			.getAnimals()
+			.then(animals => {
+				animalsDispatch({ type: 'SET_ANIMALS', payload: animals });
 			})
-		);
+			.catch(error => console.log(error));
+		// api.paintLocs.getPaintLocs().then(paintLocs =>
+		// 	paintLocsDispatch({
+		// 		type: 'SET_GALLERIES',
+		// 		payload: paintLocs,
+		// 	})
+		// );
+		// const setGalleries = api.galleries.getGalleries().then(galleries =>
+		// 	galleriesDispatch({
+		// 		type: 'SET_GALLERIES',
+		// 		payload: galleries,
+		// 	})
+		// );
 		// }
 	}, []);
 
 	// const animalsByDisplayLocation = dispLocId => {
 	// 	return animals.filter(a => a.current_display_location_id === dispLocId);
 	// };
+
+	const setPaintLocs = () =>
+		api.paintLocs
+			.getPaintLocs()
+			.then(paintLocs =>
+				paintLocsDispatch({
+					type: 'SET_PAINT_LOCS',
+					payload: paintLocs,
+				})
+			)
+			.catch(err => console.log(err));
+
+	const setGalleries = () =>
+		api.galleries
+			.getGalleries()
+			.then(galleries =>
+				galleriesDispatch({
+					type: 'SET_GALLERIES',
+					payload: galleries,
+				})
+			)
+			.catch(err => console.log(err));
 
 	return (
 		<Router>
@@ -71,6 +110,32 @@ function App() {
 					path='/animals/:id'
 					exact
 					render={props => <AnimalShowPage {...props} />}
+				/>
+				<Route
+					path='/paint-locations'
+					exact
+					render={props => (
+						<PaintLocContainer paintLocs={paintLocs} {...props} />
+					)}
+				/>
+				<Route
+					path='/paint-locations/:id'
+					exact
+					render={props => <PaintLocationShowPage {...props} />}
+				/>
+				<Route
+					path='/paintings/create'
+					exact
+					render={props => (
+						<PaintingForm animals={animals} editMode={false} {...props} />
+					)}
+				/>
+				<Route
+					path='/paintings/edit/:id'
+					exact
+					render={props => (
+						<PaintingForm animals={animals} editMode={true} {...props} />
+					)}
 				/>
 			</StateContext.Provider>
 		</Router>

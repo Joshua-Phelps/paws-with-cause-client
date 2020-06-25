@@ -11,7 +11,7 @@ export default function AnimalShowPage({ history, location }) {
 			.getAnimalById(id)
 			.then(ani => setAnimal(ani))
 			.catch(err => console.log(err));
-	}, [update]);
+	}, [update, location.pathname]);
 
 	return <>{animal.name}</>;
 }
