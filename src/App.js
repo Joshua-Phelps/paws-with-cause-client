@@ -12,6 +12,7 @@ import { animalsReducer, galleriesReducer } from './reducers/Reducers';
 import AnimalCard from './components/AnimalCard';
 
 export const StateContext = createContext();
+export const DispatchContext = createContext();
 
 function App() {
 	const [animals, animalsDispatch] = useReducer(animalsReducer, []);
