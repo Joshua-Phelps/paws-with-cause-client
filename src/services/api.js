@@ -52,6 +52,18 @@ const getPaintingById = id => {
 	}).then(res => res.json());
 };
 
+const getShelters = () => {
+	return fetch(`${API_ROOT}/shelters`, {
+		headers: headers(),
+	}).then(res => res.json());
+};
+
+const getShelterById = id => {
+	return fetch(`${API_ROOT}/shelters/${id}`, {
+		headers: headers(),
+	}).then(res => res.json());
+};
+
 export const api = {
 	animals: {
 		getAnimals,
@@ -67,5 +79,9 @@ export const api = {
 	},
 	paintings: {
 		getPaintingById,
+	},
+	shelters: {
+		getShelters,
+		getShelterById,
 	},
 };

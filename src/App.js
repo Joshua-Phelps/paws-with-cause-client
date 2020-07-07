@@ -11,10 +11,13 @@ import AnimalShowPage from './components/AnimalShowPage';
 import GalleryShowPage from './components/GalleryShowPage';
 import PaintLocationShowPage from './components/PaintLocationShowPage';
 import PaintingForm from './components/PaintingForm';
+import SheltersContainer from './containers/SheltersContainer';
+import ShelterShowPage from './components/ShelterShowPage';
 import {
 	animalsReducer,
 	galleriesReducer,
 	paintLocsReducer,
+	sheltersReducer,
 } from './reducers/Reducers';
 import AnimalCard from './components/AnimalCard';
 
@@ -25,12 +28,14 @@ function App() {
 	const [animals, animalsDispatch] = useReducer(animalsReducer, []);
 	const [galleries, galleriesDispatch] = useReducer(galleriesReducer, []);
 	const [paintLocs, paintLocsDispatch] = useReducer(paintLocsReducer, []);
+	const [shelters, sheltersDispatch] = useReducer(sheltersReducer, []);
 
 	const state = { animals, galleries };
 
 	useEffect(() => {
 		setPaintLocs();
 		setGalleries();
+		setShelters();
 
 		// const token = localStorage.getItem("token");
 		// if (token) {
@@ -60,7 +65,7 @@ function App() {
 	// 	return animals.filter(a => a.current_display_location_id === dispLocId);
 	// };
 
-	const setPaintLocs = () =>
+	const setPaintLocs = () => {
 		api.paintLocs
 			.getPaintLocs()
 			.then(paintLocs =>
@@ -70,8 +75,9 @@ function App() {
 				})
 			)
 			.catch(err => console.log(err));
+	};
 
-	const setGalleries = () =>
+	const setGalleries = () => {
 		api.galleries
 			.getGalleries()
 			.then(galleries =>
@@ -81,6 +87,19 @@ function App() {
 				})
 			)
 			.catch(err => console.log(err));
+	};
+
+	const setShelters = () => {
+		api.shelters
+			.getShelters()
+			.then(shelters =>
+				sheltersDispatch({
+					type: 'SET_SHELTERS',
+					payload: shelters,
+				})
+			)
+			.catch(err => console.log(err));
+	};
 
 	return (
 		<Router>
@@ -136,6 +155,16 @@ function App() {
 					render={props => (
 						<PaintingForm animals={animals} editMode={true} {...props} />
 					)}
+				/>
+				<Route
+					path='/shelters'
+					exact
+					render={props => <SheltersContainer shelters={shelters} {...props} />}
+				/>
+				<Route
+					path='/shelters/:id'
+					exact
+					render={props => <ShelterShowPage {...props} />}
 				/>
 			</StateContext.Provider>
 		</Router>

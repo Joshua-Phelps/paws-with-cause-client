@@ -55,6 +55,7 @@ export default function AnimalCard({ animal }) {
 		photo_status,
 		description,
 		painting,
+		photos,
 	} = animal;
 
 	const handleExpandClick = () => {
@@ -65,9 +66,10 @@ export default function AnimalCard({ animal }) {
 		return string.split('')[0].toUpperCase();
 	};
 
-	const photoUrl = () => {
-		return complete_photos ? complete_photos[0].url : '';
-	};
+	// const photoUrl = () => {
+	// 	// return complete_photos ? complete_photos[0].url : '';
+	// 	return photos ? photos[0].url : '';
+	// };
 
 	const subheader = () => {
 		let photoStatusColor =
@@ -111,7 +113,7 @@ export default function AnimalCard({ animal }) {
 			<CardMedia
 				className={classes.media}
 				// image='https://drive.google.com/uc?export=view&id=13xmQNRWPiICreCTeWqLxfe_8meH5V82t'
-				image={photoUrl}
+				image={photos[0] ? photos[0].url : ''}
 				title={'animal-photo'}
 			/>
 			<CardContent>
